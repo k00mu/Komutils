@@ -5,12 +5,12 @@
 // ==================================================
 
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
-using static System.IO.Directory;
 using static System.IO.Path;
 using static UnityEditor.AssetDatabase;
 
@@ -143,8 +143,11 @@ namespace Komutils.Editor
 
         static class Assets
         {
-            public static void ImportAsset(string asset, string subfolder,
-                string rootFolder = "C:/Users/adam/AppData/Roaming/Unity/Asset Store-5.x")
+            public static void ImportAsset(
+                string asset,
+                string subfolder,
+                string rootFolder = "C:/Users/atqamz/AppData/Roaming/Unity/Asset Store-5.x"
+            )
             {
                 ImportPackage(Combine(rootFolder, subfolder, asset), false);
             }
