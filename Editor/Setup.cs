@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEditor;
-using UnityEngine;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
+using UnityEngine;
 using static System.IO.Path;
 using static UnityEditor.AssetDatabase;
 
@@ -18,10 +18,18 @@ namespace Komutils.Editor
 {
     public static class Setup
     {
-        [MenuItem("Tools/Setup/Create Default Folders")]
+        [MenuItem("Tools/Komutils/Setup/Create Default Folders")]
         public static void CreateDefaultFolders()
         {
-            Folders.CreateDefault("_Project", "Animation", "Art", "Materials", "Prefabs", "Scripts/ScriptableObjects", "Scripts/UI");
+            Folders.CreateDefault(
+                "_Project",
+                "Animation",
+                "Art",
+                "Materials",
+                "Prefabs",
+                "Scripts/ScriptableObjects",
+                "Scripts/UI"
+            );
             Refresh();
         }
 
@@ -36,7 +44,8 @@ namespace Komutils.Editor
         [MenuItem("Tools/Setup/Install Netcode for GameObjects")]
         public static void InstallNetcodeForGameObjects()
         {
-            Packages.InstallPackages(new[] {
+            Packages.InstallPackages(new[]
+            {
                 "com.unity.multiplayer.tools",
                 "com.unity.netcode.gameobjects"
             });
@@ -46,7 +55,8 @@ namespace Komutils.Editor
         [MenuItem("Tools/Setup/Install Unity AI Navigation")]
         public static void InstallUnityAINavigation()
         {
-            Packages.InstallPackages(new[] {
+            Packages.InstallPackages(new[]
+            {
                 "com.unity.ai.navigation"
             });
         }
@@ -67,29 +77,21 @@ namespace Komutils.Editor
         {
             public static void CreateDefault(string root, params string[] folders)
             {
-                var fullpath = Path.Combine(Application.dataPath, root);
-                if (!Directory.Exists(fullpath))
-                {
-                    Directory.CreateDirectory(fullpath);
-                }
-                foreach (var folder in folders)
-                {
-                    CreateSubFolders(fullpath, folder);
-                }
+                var fullpath = Combine(Application.dataPath, root);
+                if (!Directory.Exists(fullpath)) Directory.CreateDirectory(fullpath);
+
+                foreach (var folder in folders) CreateSubFolders(fullpath, folder);
             }
 
 
-            private static void CreateSubFolders(string rootPath, string folderHierarchy)
+            static void CreateSubFolders(string rootPath, string folderHierarchy)
             {
                 var folders = folderHierarchy.Split('/');
                 var currentPath = rootPath;
                 foreach (var folder in folders)
                 {
-                    currentPath = Path.Combine(currentPath, folder);
-                    if (!Directory.Exists(currentPath))
-                    {
-                        Directory.CreateDirectory(currentPath);
-                    }
+                    currentPath = Combine(currentPath, folder);
+                    if (!Directory.Exists(currentPath)) Directory.CreateDirectory(currentPath);
                 }
             }
         }
@@ -98,15 +100,12 @@ namespace Komutils.Editor
         static class Packages
         {
             static AddRequest Request;
-            static Queue<string> PackagesToInstall = new();
+            static readonly Queue<string> PackagesToInstall = new();
 
 
             public static void InstallPackages(string[] packages)
             {
-                foreach (var package in packages)
-                {
-                    PackagesToInstall.Enqueue(package);
-                }
+                foreach (var package in packages) PackagesToInstall.Enqueue(package);
 
                 // Start the installation of the first package
                 if (PackagesToInstall.Count > 0)

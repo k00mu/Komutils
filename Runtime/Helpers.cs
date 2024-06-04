@@ -4,6 +4,8 @@
 // 
 // ==================================================
 
+using UnityEditor;
+
 namespace Komutils
 {
     public static class Helpers
@@ -11,7 +13,7 @@ namespace Komutils
         public static void QuitGame()
         {
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+            EditorApplication.isPlaying = false;
 #else
             Application.Quit();
 #endif
