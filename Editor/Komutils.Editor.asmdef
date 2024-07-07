@@ -1,3 +1,16 @@
 {
-	"name": "Komutils.Editor"
+    "name": "Komutils.Editor",
+    "rootNamespace": "Komutils.Editor",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

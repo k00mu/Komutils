@@ -19,11 +19,13 @@ namespace Komutils.Extensions
         public static void EnableZWrite(this Renderer renderer)
         {
             foreach (Material material in renderer.materials)
+            {
                 if (material.HasProperty("_Color"))
                 {
                     material.SetInt("_ZWrite", 1);
                     material.renderQueue = (int)RenderQueue.Transparent;
                 }
+            }
         }
 
 
