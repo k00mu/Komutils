@@ -136,5 +136,10 @@ namespace Komutils.Typewriter
 			
 			currentTS = tsList[tsIndex];
 		}
+
+		public bool IsActive()
+		{
+			return currentTS.IsActive();
+		}
 	}
 }
